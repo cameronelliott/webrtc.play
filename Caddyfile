@@ -1,0 +1,11 @@
+{
+    http_port 9999
+}
+
+https://bug9.sfu1.com:8443 {
+    file_server
+
+    tls {
+        dns cloudflare {env.CLOUDFLARE_TOKEN}
+    }
+}
