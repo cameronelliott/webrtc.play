@@ -26,24 +26,32 @@
             a.onicecandidate = e => !e.candidate || o.addIceCandidate(e.candidate)
 
             o.addTransceiver('video', { 'direction': 'sendonly' })
-            o.addTransceiver('video', { 'direction': 'sendonly' })
-            o.addTransceiver('video', { 'direction': 'sendonly' })
-            o.addTransceiver('audio', { 'direction': 'sendonly' })
+            a.addTransceiver('video', { 'direction': 'recvonly' })
+            a.addTransceiver('video', { 'direction': 'recvonly' })
+            a.addTransceiver('video', { 'direction': 'recvonly' })
+            // o.addTransceiver('video', { 'direction': 'sendonly' })
+            // o.addTransceiver('video', { 'direction': 'sendonly' })
+            // o.addTransceiver('audio', { 'direction': 'sendonly' })
 
-            o.addTrack(gum.getAudioTracks()[0])
+            //o.addTrack(gum.getAudioTracks()[0])
 
 
             const ofr = await o.createOffer()
             console.debug('o/sdp lines', ofr.sdp.split(/\r\n/).length)
-            console.debug('o/num m=video lines', ofr.sdp.split(/\r\n/).filter(x => x.indexOf('m=video') > -1).length)
-            console.debug('o/num m=audio lines', ofr.sdp.split(/\r\n/).filter(x => x.indexOf('m=audio') > -1).length)
+            console.debug('o/num m=video lines', ofr.sdp.split(/\r\n/).filter(x => x.indexOf('m=video') >= 0).length)
+            console.debug('o/num m=audio lines', ofr.sdp.split(/\r\n/).filter(x => x.indexOf('m=audio') >= 0).length)
+            console.debug('o/num sendonly lines', ofr.sdp.split(/\r\n/).filter(x => x.indexOf('sendonly') >= 0).length)
             await o.setLocalDescription(ofr)
             //networking
             await a.setRemoteDescription(ofr)
             const ans = await a.createAnswer()
-            console.debug('o/sdp lines', ans.sdp.split(/\r\n/).length)
-            console.debug('o/num m=video lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=video') > -1).length)
-            console.debug('o/num m=audio lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=audio') > -1).length)
+            console.debug('a/sdp lines', ans.sdp.split(/\r\n/).length)
+            console.debug('a/num m=video lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=video') >= 0).length)
+            console.debug('a/num m=audio lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=audio') >= 0).length)
+            console.debug('a/num sendrecv lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=sendrecv') >= 0).length)
+            console.debug('a/num recvonly lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=recvonly') >= 0).length)
+            console.debug('a/num sendonly lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=sendonly') >= 0).length)
+            
             await a.setLocalDescription(ans)
             //networking
             await o.setRemoteDescription(ans)
