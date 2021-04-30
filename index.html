@@ -25,15 +25,32 @@
             o.onicecandidate = e => !e.candidate || a.addIceCandidate(e.candidate)
             a.onicecandidate = e => !e.candidate || o.addIceCandidate(e.candidate)
 
-            o.addTransceiver('video', { 'direction': 'sendonly' })
-            a.addTransceiver('video', { 'direction': 'recvonly' })
-            a.addTransceiver('video', { 'direction': 'recvonly' })
-            a.addTransceiver('video', { 'direction': 'recvonly' })
+            o.addTransceiver(gum.getVideoTracks()[0], {
+                direction: 'sendonly',
+                streams: [gum],
+                sendEncodings: [
+                    { rid: 'video2', scaleResolutionDownBy: 4.0 },
+                    { rid: 'video1', scaleResolutionDownBy: 2.0 },
+                    { rid: 'video0', scaleResolutionDownBy: 1.0 }
+                ],
+            })
+
+
+            // o.addTrack(gum.getVideoTracks()[0])
+            // o.addTrack(gum.getAudioTracks()[0])
+
+
+            //o.addTransceiver('video', { 'direction': 'sendonly' })
+            //o.addTransceiver('video', { 'direction': 'sendonly' })
+            // a.addTransceiver('video', { 'direction': 'recvonly' })
+            // a.addTransceiver('video', { 'direction': 'recvonly' })
+            // a.addTransceiver('video', { 'direction': 'recvonly' })
             // o.addTransceiver('video', { 'direction': 'sendonly' })
             // o.addTransceiver('video', { 'direction': 'sendonly' })
             // o.addTransceiver('audio', { 'direction': 'sendonly' })
 
-            //o.addTrack(gum.getAudioTracks()[0])
+
+
 
 
             const ofr = await o.createOffer()
@@ -51,7 +68,7 @@
             console.debug('a/num sendrecv lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=sendrecv') >= 0).length)
             console.debug('a/num recvonly lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=recvonly') >= 0).length)
             console.debug('a/num sendonly lines', ans.sdp.split(/\r\n/).filter(x => x.indexOf('m=sendonly') >= 0).length)
-            
+
             await a.setLocalDescription(ans)
             //networking
             await o.setRemoteDescription(ans)
