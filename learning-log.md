@@ -27,10 +27,11 @@
 - In the subscriber-answer model, the browser would need to modify SDP and remove transceivers somehow, which is super messy/complicated for me, and insanely complex for non WebRTC developers
 
 ## Conclusions
-- SFUs need to know number-video and number-audio beforehand, and can't learn from upstream
+- SFUs need to know number-video and number-audio beforehand, and can't learn from upstreams
 - Browsers just need a single audio, single video, and force this easily as the caller
 - The WHEP protocol avoids a TXID query-param with the Subscriber-offer-model
 - The WHEP protocol avoids double fetching with the Subscriber-offer-model
+- The WHEP protocol is very simple and WHIP-like with the Subscriber-offer-model
 - The big loss for WHEP using a Subscriber-offer-model is that the NULLSFU is impossible
 - It's worth nothing a useful NULLSFU application does require a TURN server, but using a public-IP SFU eliminates the TURN requirement. So applications like www.help.mom under Subscriber-answer-model require TURN, but under Subscriber-offer-model do not require TURN!
 
