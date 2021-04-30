@@ -25,15 +25,10 @@
             o.onicecandidate = e => !e.candidate || a.addIceCandidate(e.candidate)
             a.onicecandidate = e => !e.candidate || o.addIceCandidate(e.candidate)
 
-            o.addTransceiver(gum.getVideoTracks()[0], {
-                direction: 'sendonly',
-                streams: [gum],
-                sendEncodings: [
-                    { rid: 'video2', scaleResolutionDownBy: 4.0 },
-                    { rid: 'video1', scaleResolutionDownBy: 2.0 },
-                    { rid: 'video0', scaleResolutionDownBy: 1.0 }
-                ],
-            })
+            o.addTransceiver(gum.getVideoTracks()[0], { 'direction': 'sendonly' })
+
+            o.addTransceiver(gum.getVideoTracks()[0], { 'direction': 'sendonly' })
+
 
 
             // o.addTrack(gum.getVideoTracks()[0])
