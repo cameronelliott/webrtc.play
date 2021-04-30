@@ -33,7 +33,8 @@
 - The WHEP protocol avoids double fetching with the Subscriber-offer-model
 - The WHEP protocol is very simple and WHIP-like with the Subscriber-offer-model
 - The big loss for WHEP using a Subscriber-offer-model is that the NULLSFU is impossible
-- It's worth nothing a useful NULLSFU application does require a TURN server, but using a public-IP SFU eliminates the TURN requirement. So applications like www.help.mom under Subscriber-answer-model require TURN, but under Subscriber-offer-model do not require TURN!
+- It's worth nothing a useful NULLSFU application does require a TURN server, but using a public-IP SFU eliminates the TURN requirement. So applications like www.help.mom under Subscriber-answer-model require TURN (with NULLSFU), but under Subscriber-offer-model (with SFU) do not require TURN!
+- I would prefer to deploy an SFU than a TURN server in the interest of focus/density
 
 ## Decision
 - WHIEP will use a Subscriber-offer-model, not a Subscriber-answer-model
